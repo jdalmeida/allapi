@@ -29,7 +29,7 @@ function createGitHubApiClient(config: GitHubApiConfig) {
   async function makeRequest<T>(
     endpoint: string,
     method: "GET" | "POST" | "PUT" | "DELETE" = "GET",
-    body?: any,
+    body?: unknown,
   ): Promise<GitHubApiResponse<T>> {
     const url = `${baseUrl}${endpoint.startsWith("/") ? endpoint : `/${endpoint}`}`;
 
@@ -54,13 +54,13 @@ function createGitHubApiClient(config: GitHubApiConfig) {
   }
 
   return {
-    getUser: (username: string) => makeRequest<any>(`/users/${username}`),
+    getUser: (username: string) => makeRequest<unknown>(`/users/${username}`),
 
     getRepository: (owner: string, repo: string) =>
-      makeRequest<any>(`/repos/${owner}/${repo}`),
+      makeRequest<unknown>(`/repos/${owner}/${repo}`),
 
     listRepositories: (username: string, page = 1, perPage = 30) =>
-      makeRequest<any[]>(
+      makeRequest<unknown[]>(
         `/users/${username}/repos?page=${page}&per_page=${perPage}`,
       ),
 
@@ -71,7 +71,7 @@ function createGitHubApiClient(config: GitHubApiConfig) {
       body: string,
       labels?: string[],
     ) =>
-      makeRequest<any>(`/repos/${owner}/${repo}/issues`, "POST", {
+      makeRequest<unknown>(`/repos/${owner}/${repo}/issues`, "POST", {
         title,
         body,
         labels,
@@ -81,7 +81,8 @@ function createGitHubApiClient(config: GitHubApiConfig) {
       owner: string,
       repo: string,
       state: "open" | "closed" | "all" = "open",
-    ) => makeRequest<any[]>(`/repos/${owner}/${repo}/issues?state=${state}`),
+    ) =>
+      makeRequest<unknown[]>(`/repos/${owner}/${repo}/issues?state=${state}`),
 
     createPullRequest: (
       owner: string,
@@ -91,7 +92,7 @@ function createGitHubApiClient(config: GitHubApiConfig) {
       base: string,
       body?: string,
     ) =>
-      makeRequest<any>(`/repos/${owner}/${repo}/pulls`, "POST", {
+      makeRequest<unknown>(`/repos/${owner}/${repo}/pulls`, "POST", {
         title,
         head,
         base,
@@ -99,13 +100,13 @@ function createGitHubApiClient(config: GitHubApiConfig) {
       }),
 
     getPullRequest: (owner: string, repo: string, pullNumber: number) =>
-      makeRequest<any>(`/repos/${owner}/${repo}/pulls/${pullNumber}`),
+      makeRequest<unknown>(`/repos/${owner}/${repo}/pulls/${pullNumber}`),
 
     listBranches: (owner: string, repo: string) =>
-      makeRequest<any[]>(`/repos/${owner}/${repo}/branches`),
+      makeRequest<unknown[]>(`/repos/${owner}/${repo}/branches`),
 
     getContent: (owner: string, repo: string, path: string) =>
-      makeRequest<any>(`/repos/${owner}/${repo}/contents/${path}`),
+      makeRequest<unknown>(`/repos/${owner}/${repo}/contents/${path}`),
 
     createWebhook: (
       owner: string,
@@ -113,7 +114,7 @@ function createGitHubApiClient(config: GitHubApiConfig) {
       url: string,
       events: string[] = ["push"],
     ) =>
-      makeRequest<any>(`/repos/${owner}/${repo}/hooks`, "POST", {
+      makeRequest<unknown>(`/repos/${owner}/${repo}/hooks`, "POST", {
         config: { url, content_type: "json" },
         events,
         active: true,
@@ -123,7 +124,7 @@ function createGitHubApiClient(config: GitHubApiConfig) {
     request: <T>(
       endpoint: string,
       method?: "GET" | "POST" | "PUT" | "DELETE",
-      body?: any,
+      body?: unknown,
     ) => makeRequest<T>(endpoint, method, body),
   };
 }

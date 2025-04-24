@@ -1,3 +1,5 @@
+export * as github from "./github";
+
 export function customApiClient(baseURL: string) {
   return async function request(path: string, options?: RequestInit) {
     const res = await fetch(`${baseURL}${path}`, options);

@@ -11,7 +11,7 @@ interface GitHubApiResponse<T> {
   headers: Record<string, string>;
 }
 
-function createGitHubApiClient(config: GitHubApiConfig) {
+export function createGitHubApiClient(config: GitHubApiConfig) {
   const {
     token,
     baseUrl = "https://api.github.com",

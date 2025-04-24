@@ -1,6 +1,6 @@
 {
   "name": "allapi",
-  "version": "0.0.1",
+  "version": "0.0.1r2",
   "description": "",
   "main": "index.ts",
   "scripts": {

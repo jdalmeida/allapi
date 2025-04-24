@@ -9,10 +9,23 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "module": "index.ts",
+  "type": "module",
   "exports": {
-    ".": "./dist/index.js",
-    "./github": "./dist/github/index.js"
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./github": {
+      "import": "./dist/github.js",
+      "types": "./dist/github.d.ts"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "github": [
+        "dist/github.d.ts"
+      ]
+    }
   },
   "devDependencies": {
     "typescript": "^5.8.3"
